@@ -1,6 +1,43 @@
 Lab Report 1
 ================
 
+``` r
+knitr::opts_chunk$set(
+        echo = TRUE,
+        warning = FALSE,
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() +theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.color = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_color_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+``` r
+# importing and cleaning the data
+weekly_ili = read_csv(file = "./data/da_ILINet.csv") |> 
+  janitor::clean_names() |> 
+  select(-florida)
+```
+
+    ## Rows: 52 Columns: 55
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## dbl  (53): Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connect...
+    ## lgl   (1): Florida
+    ## date  (1): Date
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
 # Question 1
 
 Explore the dataset and answer the following questions:
@@ -11,6 +48,13 @@ What variables does the dataset contain? How many weeks are included for
 each variable in the dataset? (Hint: what function gives the column
 names? What function gives the number of rows in a data frame?)
 
+The data set contain a date variable to denote one day per week from
+September 30, 2018 to September 22, 2019, for a total of 52 weeks. The
+other variables are 45 U.S. states (although there is no data recorded
+for Florida) and U.S. territories such as Puerto Rico and the Virgin
+Islands. The dataset also includes two city variables: Washington D.C.
+and New York City.
+
 ## 1.2
 
 What state are you from? What was the ILI in the 2nd week of the season
@@ -18,11 +62,22 @@ for your state? (Note if you are from out of the States or Florida (the
 CDC did not have data for Florida that season), please use New York City
 instead).
 
+I am from New York, and the ILI in the 2nd week of the season was 982.
+
 ## 1.3
 
 Suppose you store the dataset in a variable called ‘ili’. What do the
 outputs from the following commands represent? NOTE: Specify the date(s)
 and location(s); do not copy & paste the output.
+
+``` r
+ili = weekly_ili |> 
+  pivot_longer(
+    cols = alabama:virginia,
+    names_to = "state",
+    values_to = "ili"
+  )
+```
 
 ### part a
 

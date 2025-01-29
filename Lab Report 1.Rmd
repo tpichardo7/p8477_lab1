@@ -48,7 +48,7 @@ New York City is in New York State. To compare ILI in NYC to that in NY State, s
 # Question 4
 When you have multiple variables/categories and each has a lot of data points, boxplot is an effective way toay the distributions of the variables/categories. Use boxplot to show the variation in ILI among all states/cities for each week in the last flu season. 
 
-# Math Operations % Function
+# Math Operations & Function
 # Question 5
 We know that the solutions of the quadratic equation ax^2 + bx + c = 0 are:
 Write a script in R to find the solutions for the followinf equations:

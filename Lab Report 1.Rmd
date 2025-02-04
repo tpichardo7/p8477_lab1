@@ -5,6 +5,7 @@ output: github_document
 
 ```{r setup, include=FALSE}
 library(tidyverse)
+library(patchwork)
 ```
 
 ```{r}
@@ -41,7 +42,7 @@ Explore the dataset and answer the following questions:
 ## 1.1
 What variables does the dataset contain? How many weeks are included for each variable in the dataset? (Hint: what function gives the column names? What function gives the number of rows in a data frame?)
 
-The data set contain a date variable to denote one day per week from September 30, 2018 to September 22, 2019, for a total of 52 weeks. The other variables are 45 U.S. states (although there is no data recorded for  Florida) and U.S. territories such as Puerto Rico and the Virgin Islands. The dataset also includes two city variables: Washington D.C. and New York City.
+The data set contain a date variable to denote one day per week from September 30, 2018 to September 22, 2019, for a total of 52 weeks. The other variables are 50 U.S. states (although there is no data recorded for  Florida) and U.S. territories such as Puerto Rico and the Virgin Islands. The dataset also includes two city variables: Washington D.C. and New York City.
 
 ## 1.2
 What state are you from? What was the ILI in the 2nd week of the season for your state? (Note if you are from out of the States or Florida (the CDC did not have data for Florida that season), please use New York City instead).
@@ -54,12 +55,13 @@ Suppose you store the dataset in a variable called 'ili'. What do the outputs fr
 ```{r}
 ili = weekly_ili |> 
   pivot_longer(
-    cols = alabama:virginia,
+    cols = alabama:wyoming,
     names_to = "state",
     values_to = "ili"
   )
 ```
 
+The outputs from the following commands represent the influenza-like illness per 100,000 cases recorded for that week.
 
 ### part a
 ili [2, 6]
@@ -76,18 +78,52 @@ ili [36, 'New.York.City'] (Note: R does not 'like' space in variable names, so r
 ## 1.4
 What are the mean and maximum ILI levels for New York City, respectively? (hint: you can use the 'summary' function to print the summary statistics for each column. Or use the function 'mean' and 'max' to get the results respectively)
 
+The mean ILI level for New York City is 2290.
+The maximum ILI level for New York City is 4383.
+
 ## 1.5
 When did New York City have its peak ILI (i.e. maximum ILI) that flu season?
+
+New York City had its peak ILI on December 23, 2018 that flu season.
 
 
 # Question 2
 Plot the weekly ILI in New York City (column: New.York.City) over time.
 
+```{r}
+nyc = ggplot(weekly_ili, aes(x = date, y = new_york_city, color = date)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth() +
+  labs(title = "Weekly ILI in New York City", 
+       x = "Date", 
+       y = "Influenza-like Illness (per 100,000)")
+```
+
+
 # Question 3
 New York City is in New York State. To compare ILI in NYC to that in NY State, superimpose the weekly ILI for NY State to the above plot (Q2).
 
+```{r}
+ny_state = ggplot(weekly_ili, aes(x = date, y = new_york, color = date)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth() +
+  labs(title = "Weekly ILI in New York State", 
+       x = "Date", 
+       y = "Influenza-like Illness (per 100,000)")
+```
+
+```{r}
+nyc + ny_state
+```
+
 # Question 4
-When you have multiple variables/categories and each has a lot of data points, boxplot is an effective way toay the distributions of the variables/categories. Use boxplot to show the variation in ILI among all states/cities for each week in the last flu season. 
+When you have multiple variables/categories and each has a lot of data points, boxplot is an effective way to display the distributions of the variables/categories. Use boxplot to show the variation in ILI among all states/cities for each week in the last flu season. 
+
+```{r}
+ggplot(ili, aes(x = date, y = ili, color = state)) +
+  geom_boxplot()
+```
+
 
 # Math Operations & Function
 # Question 5

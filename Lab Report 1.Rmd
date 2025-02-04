@@ -128,13 +128,61 @@ ggplot(ili, aes(x = date, y = ili, color = state)) +
 # Math Operations & Function
 # Question 5
 We know that the solutions of the quadratic equation ax^2 + bx + c = 0 are:
-Write a script in R to find the solutions for the followinf equations:
+Write a script in R to find the solutions for the following equations:
+
 
 ## part a
 2x^2 + 10x + 3 = 0
 
+```{r}
+a = 2
+b = 10
+c = 3
+```
+
 ## part b
 5x^2 - 6x + 1 = 0
 
+```{r}
+a = 5
+b = -6
+c = 1
+```
+
+
 # Question 6
 To make implementation of Question 5 easier, create a function to find the solutions for any quadratic equation with constants a, b, and c. Your function should be able to return the two solutions once you specify the three constants, For instance, suppose you name the function Fn_sol_quadratic, the command Fn_sol_quadratic(a=2, b=10, c=3) will return the two solutions for equation 2x^2 +10x +3 = 0
+
+```{r}
+quadratic = function (a, b, c) {
+  
+  discriminant = b^2 - 4*a*c
+  
+  if (discriminant > 0) {
+    root1 = (-b + sqrt(discriminant)) / (2*a)
+    root2 = (-b - sqrt(discriminant)) / (2*a)
+    return(c(root1, root2))
+    
+  } else if (discriminant == 0) {
+    
+    root = -b / (2*a)
+    return(root)
+    
+    } else {
+      real_part = -b / (2*a)
+      imaginary_part = sqrt(-discriminant) / (2*a)
+      return(c(real = real_part, imaginary = imaginary_part))
+  }
+}
+```
+
+2x^2 + 10x + 3 = 0
+```{r}
+quadratic(2, 10, 3)
+```
+
+5x^2 - 6x + 1 = 0
+```{r}
+quadratic(5, -6, 1)
+```
+

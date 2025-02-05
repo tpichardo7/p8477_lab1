@@ -101,7 +101,7 @@ Plot the weekly ILI in New York City (column: New.York.City) over time.
 ```{r}
 nyc = ggplot(weekly_ili, aes(x = date, y = new_york_city, color = date)) +
   geom_point(alpha = 0.6) +
-  geom_smooth() +
+  geom_line() +
   labs(title = "Weekly ILI in New York City", 
        x = "Date", 
        y = "Influenza-like Illness (per 100,000)")
@@ -114,7 +114,7 @@ New York City is in New York State. To compare ILI in NYC to that in NY State, s
 ```{r}
 ny_state = ggplot(weekly_ili, aes(x = date, y = new_york, color = date)) +
   geom_point(alpha = 0.6) +
-  geom_smooth() +
+  geom_line() +
   labs(title = "Weekly ILI in New York State", 
        x = "Date", 
        y = "Influenza-like Illness (per 100,000)")

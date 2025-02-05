@@ -50,7 +50,7 @@ names? What function gives the number of rows in a data frame?)
 
 The data set contain a date variable to denote one day per week from
 September 30, 2018 to September 22, 2019, for a total of 52 weeks. The
-other variables are 45 U.S. states (although there is no data recorded
+other variables are 50 U.S. states (although there is no data recorded
 for Florida) and U.S. territories such as Puerto Rico and the Virgin
 Islands. The dataset also includes two city variables: Washington D.C.
 and New York City.
@@ -73,11 +73,14 @@ and location(s); do not copy & paste the output.
 ``` r
 ili = weekly_ili |> 
   pivot_longer(
-    cols = alabama:virginia,
+    cols = alabama:wyoming,
     names_to = "state",
     values_to = "ili"
   )
 ```
+
+The outputs from the following commands represent the influenza-like
+illness per 100,000 cases recorded for that week.
 
 ### part a
 
@@ -103,42 +106,137 @@ respectively? (hint: you can use the ‘summary’ function to print the
 summary statistics for each column. Or use the function ‘mean’ and ‘max’
 to get the results respectively)
 
+The mean ILI level for New York City is 2290. The maximum ILI level for
+New York City is 4383.
+
 ## 1.5
 
 When did New York City have its peak ILI (i.e. maximum ILI) that flu
 season?
 
+New York City had its peak ILI on December 23, 2018 that flu season.
+
 # Question 2
 
 Plot the weekly ILI in New York City (column: New.York.City) over time.
+
+``` r
+nyc = ggplot(weekly_ili, aes(x = date, y = new_york_city, color = date)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth() +
+  labs(title = "Weekly ILI in New York City", 
+       x = "Date", 
+       y = "Influenza-like Illness (per 100,000)")
+```
 
 # Question 3
 
 New York City is in New York State. To compare ILI in NYC to that in NY
 State, superimpose the weekly ILI for NY State to the above plot (Q2).
 
+``` r
+ny_state = ggplot(weekly_ili, aes(x = date, y = new_york, color = date)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth() +
+  labs(title = "Weekly ILI in New York State", 
+       x = "Date", 
+       y = "Influenza-like Illness (per 100,000)")
+```
+
+``` r
+nyc + ny_state
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+<img src="Lab-Report-1_files/figure-gfm/unnamed-chunk-6-1.png" width="90%" />
+
 # Question 4
 
 When you have multiple variables/categories and each has a lot of data
-points, boxplot is an effective way toay the distributions of the
+points, boxplot is an effective way to display the distributions of the
 variables/categories. Use boxplot to show the variation in ILI among all
 states/cities for each week in the last flu season.
+
+``` r
+ggplot(ili, aes(x = date, y = ili, color = state)) +
+  geom_boxplot()
+```
+
+<img src="Lab-Report-1_files/figure-gfm/unnamed-chunk-7-1.png" width="90%" />
 
 # Math Operations & Function
 
 # Question 5
 
 We know that the solutions of the quadratic equation ax^2 + bx + c = 0
-are: Write a script in R to find the solutions for the followinf
+are: Write a script in R to find the solutions for the following
 equations:
 
 ## part a
 
 2x^2 + 10x + 3 = 0
 
+``` r
+a = 2
+b = 10
+c = 3
+```
+
+``` r
+discriminant = b^2 - 4* a * c
+```
+
+``` r
+if (discriminant > 0) {
+  root1 = (-b + sqrt(discriminant)) / (2 * a)
+  root2 = (-b - sqrt(discriminant)) / (2 * a)
+  print(c(root1, root2))
+} else if (discriminant == 0) {
+  root = -b / (2 * a)
+  print(root)
+} else {
+  realPart = -b / (2 * a)
+  imaginaryPart = sqrt(-discriminant) / (2 * a)
+  print(paste(realPart, "+", imaginaryPart, "i"))
+  print(paste(realPart, "-", imaginaryPart, "i"))
+}
+```
+
+    ## [1] -0.3205505 -4.6794495
+
 ## part b
 
 5x^2 - 6x + 1 = 0
+
+``` r
+a = 5
+b = -6
+c = 1
+```
+
+``` r
+discriminant = b^2 - 4* a * c
+```
+
+``` r
+if (discriminant > 0) {
+  root1 = (-b + sqrt(discriminant)) / (2 * a)
+  root2 = (-b - sqrt(discriminant)) / (2 * a)
+  print(c(root1, root2))
+} else if (discriminant == 0) {
+  root = -b / (2 * a)
+  print(root)
+} else {
+  realPart = -b / (2 * a)
+  imaginaryPart = sqrt(-discriminant) / (2 * a)
+  print(paste(realPart, "+", imaginaryPart, "i"))
+  print(paste(realPart, "-", imaginaryPart, "i"))
+}
+```
+
+    ## [1] 1.0 0.2
 
 # Question 6
 
@@ -148,3 +246,42 @@ c. Your function should be able to return the two solutions once you
 specify the three constants, For instance, suppose you name the function
 Fn_sol_quadratic, the command Fn_sol_quadratic(a=2, b=10, c=3) will
 return the two solutions for equation 2x^2 +10x +3 = 0
+
+``` r
+quadratic = function (a, b, c) {
+  
+  discriminant = b^2 - 4*a*c
+  
+  if (discriminant > 0) {
+    root1 = (-b + sqrt(discriminant)) / (2*a)
+    root2 = (-b - sqrt(discriminant)) / (2*a)
+    return(c(root1, root2))
+    
+  } else if (discriminant == 0) {
+    
+    root = -b / (2*a)
+    return(root)
+    
+    } else {
+      real_part = -b / (2*a)
+      imaginary_part = sqrt(-discriminant) / (2*a)
+      return(c(real = real_part, imaginary = imaginary_part))
+  }
+}
+```
+
+2x^2 + 10x + 3 = 0
+
+``` r
+quadratic(2, 10, 3)
+```
+
+    ## [1] -0.3205505 -4.6794495
+
+5x^2 - 6x + 1 = 0
+
+``` r
+quadratic(5, -6, 1)
+```
+
+    ## [1] 1.0 0.2

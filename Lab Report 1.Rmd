@@ -140,6 +140,27 @@ b = 10
 c = 3
 ```
 
+```{r}
+discriminant = b^2 - 4* a * c
+```
+
+```{r}
+if (discriminant > 0) {
+  root1 = (-b + sqrt(discriminant)) / (2 * a)
+  root2 = (-b - sqrt(discriminant)) / (2 * a)
+  print(c(root1, root2))
+} else if (discriminant == 0) {
+  root = -b / (2 * a)
+  print(root)
+} else {
+  realPart = -b / (2 * a)
+  imaginaryPart = sqrt(-discriminant) / (2 * a)
+  print(paste(realPart, "+", imaginaryPart, "i"))
+  print(paste(realPart, "-", imaginaryPart, "i"))
+}
+```
+
+
 ## part b
 5x^2 - 6x + 1 = 0
 
@@ -147,6 +168,26 @@ c = 3
 a = 5
 b = -6
 c = 1
+```
+
+```{r}
+discriminant = b^2 - 4* a * c
+```
+
+```{r}
+if (discriminant > 0) {
+  root1 = (-b + sqrt(discriminant)) / (2 * a)
+  root2 = (-b - sqrt(discriminant)) / (2 * a)
+  print(c(root1, root2))
+} else if (discriminant == 0) {
+  root = -b / (2 * a)
+  print(root)
+} else {
+  realPart = -b / (2 * a)
+  imaginaryPart = sqrt(-discriminant) / (2 * a)
+  print(paste(realPart, "+", imaginaryPart, "i"))
+  print(paste(realPart, "-", imaginaryPart, "i"))
+}
 ```
 
 

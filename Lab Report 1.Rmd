@@ -42,7 +42,7 @@ Explore the dataset and answer the following questions:
 ## 1.1
 What variables does the dataset contain? How many weeks are included for each variable in the dataset? (Hint: what function gives the column names? What function gives the number of rows in a data frame?)
 
-The data set contain a date variable to denote one day per week from September 30, 2018 to September 22, 2019, for a total of 52 weeks. The other variables are 50 U.S. states (although there is no data recorded for  Florida) and U.S. territories such as Puerto Rico and the Virgin Islands. The dataset also includes two city variables: Washington D.C. and New York City.
+The dataset contains a date variable to denote one day per week from September 30, 2018 to September 22, 2019, for a total of 52 weeks. The other variables are 50 U.S. states (although there is no data recorded for  Florida) and U.S. territories such as Puerto Rico and the Virgin Islands. The dataset also includes two city variables: Washington D.C. and New York City.
 
 ## 1.2
 What state are you from? What was the ILI in the 2nd week of the season for your state? (Note if you are from out of the States or Florida (the CDC did not have data for Florida that season), please use New York City instead).
@@ -66,14 +66,22 @@ The outputs from the following commands represent the influenza-like illness per
 ### part a
 ili [2, 6]
 
+This output refers to the 2nd week and 6th state in the dataset which is Colorado on October 7, 2018. The ILI during the 2nd week of the season in Colorado was 2339.
+
 ### part b
 ili [30, 5:14]
+
+This output refers to the 30th week and states 5 through 14 in the dataset which are California, Colorado, Connecticut, Delaware, District of Columbia, Georgia, Florida, Hawaii, Idaho, and Illinois. The ILI during the 30th week of the season for each of these states was 2024, 2612, 2312, 203, 1810, 2320, NA, 2665, 713, 1302, respectively. 
 
 ### part c
 ili [, 5]
 
+A comma alone refers to all the rows for the 5th state in the dataset will be returned which is California. 
+
 ### part d
 ili [36, 'New.York.City'] (Note: R does not 'like' space in variable names, so replace space with '.' here)
+
+This output refers to the ILI during the 36th week in New York City. The ILI during this week of the season was 1711. 
 
 ## 1.4
 What are the mean and maximum ILI levels for New York City, respectively? (hint: you can use the 'summary' function to print the summary statistics for each column. Or use the function 'mean' and 'max' to get the results respectively)
